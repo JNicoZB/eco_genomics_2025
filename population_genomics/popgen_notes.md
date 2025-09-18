@@ -34,8 +34,8 @@
 
 ### 09/18/2025: Review bamstats and set up nucleotaide diversity estimation using ANGSD
 
--   Wrote a short script called bamstats review.r located in 'myscripts' to evaluate the mapping success
+-   Wrote a short script called bamstats review.r located in \myscripts to evaluate the mapping success
 
--    Saw roughly 66% of reads mapped in poper pairs
+-   Saw roughly 66% of reads mapped in poper pairs
 
 -   Obtened
