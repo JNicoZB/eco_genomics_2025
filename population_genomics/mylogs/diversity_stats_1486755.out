@@ -1,0 +1,8 @@
+mkdir: cannot create directory ‘/users/j/n/jnzapata/projects/eco_genomics_2025/population_genomics/mydata/ANGSD’: File exists
+ANGSD.sh: line 33: ANGSD: command not found
+	-> Problem opening file: '/users/j/n/jnzapata/projects/eco_genomics_2025/population_genomics/mydata/ANGSD/2024_ALL.saf.idx'
+	-> Problem opening file: '/users/j/n/jnzapata/projects/eco_genomics_2025/population_genomics/mydata/ANGSD/2024_ALL.saf.idx'
+ thetaStat do_stat /users/j/n/jnzapata/projects/eco_genomics_2025/population_genomics/mydata/ANGSD/2024_ALL.thetas.idx -win 50000 -step 50000 -outnames /users/j/n/jnzapata/projects/eco_genomics_2025/population_genomics/myresults/ANGSD/diversity/2024_ALL_win50000_step50000.thetasWindow.gz
+	Assuming binfile:/users/j/n/jnzapata/projects/eco_genomics_2025/population_genomics/mydata/ANGSD/2024_ALL.thetas.gz and indexfile:/users/j/n/jnzapata/projects/eco_genomics_2025/population_genomics/mydata/ANGSD/2024_ALL.thetas.idx
+	-> Problems opening file: '/users/j/n/jnzapata/projects/eco_genomics_2025/population_genomics/mydata/ANGSD/2024_ALL.thetas.idx'
+cut: /users/j/n/jnzapata/projects/eco_genomics_2025/population_genomics/myresults/ANGSD/diversity/2024_ALL.thetasWindow.gz.pestPG: No such file or directory

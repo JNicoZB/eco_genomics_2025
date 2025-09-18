@@ -30,5 +30,12 @@
 
 -   Cleaned reads are now ready to proceed to the next step in our pipeline: mapping to the reference genome!
 
-
 ### 09/16/25: Mapping our cleaned reads to the reference genome
+
+### 09/18/2025: Review bamstats and set up nucleotaide diversity estimation using ANGSD
+
+-   Wrote a short script called bamstats review.r located in 'myscripts' to evaluate the mapping success
+
+-    Saw roughly 66% of reads mapped in poper pairs
+
+-   Obtened
