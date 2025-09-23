@@ -225,3 +225,4 @@ Or it could be problem with this program regSize=0 notDone=8
 No data for chromoId=5805 chromoname=JASDQU010195384.1
 This could either indicate that there really is no data for this chromosome
 Or it could be problem with this program regSize=0 notDone=8
+	-> Printing at chr: JASDQU010196078.1 pos:8966 chunknumber 19300 contains 260 sites
