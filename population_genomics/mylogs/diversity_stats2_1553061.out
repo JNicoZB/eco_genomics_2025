@@ -222,3 +222,6 @@ This could either indicate that there really is no data for this chromosome
 Or it could be problem with this program regSize=0 notDone=8
 	-> Printing at chr: JASDQU010193657.1 pos:6372 chunknumber 19100 contains 782 sites
 	-> Printing at chr: JASDQU010194629.1 pos:15116 chunknumber 19200 contains 417 sites
+No data for chromoId=5805 chromoname=JASDQU010195384.1
+This could either indicate that there really is no data for this chromosome
+Or it could be problem with this program regSize=0 notDone=8
