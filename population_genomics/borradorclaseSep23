@@ -1,0 +1,32 @@
+# linea 65 del codigo de clase sep 23
+
+ggplot (theta2, aes(x=tWsite, y=tPsite, color=Chr)) +
+ geom_point(size=0.75, shape=1)
+ 
+ 
+ 
+ 
+ which windows have evidence of negative D and low nucleotide diversity? #esta es la linea 74
+ 
+ ```{r}
+ theta2[which(theta2$Tajima <- -1.5 & theta2$tPsite <0.001),]
+ 
+ ```
+ 
+ 
+ 
+ # linea 86 
+ pull out extremes of Tajima's D
+ 
+ ``` {r}
+ maxD = max(theta2$Tajima)
+ BigD = theta2[which(theta2$Tajima==maxD),]
+ 
+ BigD
+ 
+ minD = min(theta2$Tajima)
+ SmallD = theta2[which(theta2$Tajima==minD),]
+ 
+ SmallD
+ 
+ ```

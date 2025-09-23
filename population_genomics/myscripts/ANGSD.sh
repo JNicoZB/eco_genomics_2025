@@ -30,7 +30,7 @@ SUFFIX="ALL"
 #  Estimating Genotype Likelihoods (GLs)  #
 ###########################################
 
-ANGSD -b ${OUT}/${MYPOP}_bam.list \
+angsd -b ${OUT}/${MYPOP}_bam.list \
 -ref ${REF} \
 -anc ${REF} \
 -out ${OUT}/${MYPOP}_${SUFFIX} \
