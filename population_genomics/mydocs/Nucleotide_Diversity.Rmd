@@ -54,19 +54,22 @@ summary(theta)
  
 theta2<-theta %>% 
 
-  arrange(Chr, WinCenter) %>% 
+arrange(Chr, WinCenter) %>% 
 
-  filter(nSites>100) 
+filter(nSites>100) 
 
 summary(theta2)
 
 ```
 
+Lets plot a histogram of how many sites are in each window
+ 
 ```{r}
-ggplot (theta2, aes(nSites)) +
-   geom_histogram(bin=50, fill = "Lightblue" ) +
-   geom_vline(xintercept+)
-
+histo1<-ggplot(theta2, aes(nSites))+
+  geom_histogram(bin=50, fill='lightblue',color='black')+
+  geom_vline(xintercept = median(theta2$nSites), color='red', linetype='dashed')+
+  labs(title='Distribution of windows with data', x='Number of sites in 50 kb windows', y='Frequency')
+histo1
 ```
 
 
@@ -76,3 +79,38 @@ ggplot(theta2, aes(x=Chr, y=tPsite, color=Chr)) +
   geom_point(size=0.75, shape=1, show.legent=F) +
   ylim(0,0.07) +
   labs(title="Nucleotide diversity in 50 kb windiws for population 2030", x="Scaffold", y="Theta")
+```
+
+```{r}
+ggplot(theta2, aes(x=tWsite, y=tPsite, color=Chr))+
+
+  geom_point(size=0.75, shape=1, show.legend = F)+
+
+  geom_abline(slope=1, intercept = 0, linetype='dashed',color='black')+
+
+  labs(title='Pairwise Differences vs Segregating Sites for Pop 2030', x='Theta-W', y='Theta-Pi')
+ 
+ 
+```
+
+Which windows have evidence of negative D and low nucleotide diversity
+
+```{r}
+
+theta2[which(theta2$Tajima <-1.5 & theta2$tPsite<0.001),]
+```
+pull out extremes of Tajima's D
+ 
+```{r}
+maxD = max(theta2$Tajima)
+BigD = theta2[which(theta2$Tajima==maxD),]
+ 
+BigD
+ 
+minD = min(theta2$Tajima)
+SmallD = theta2[which(theta2$Tajima==minD),]
+SmallD
+ 
+```
+
+ 
