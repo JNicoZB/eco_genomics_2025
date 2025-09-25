@@ -97,7 +97,11 @@ Which windows have evidence of negative D and low nucleotide diversity
 
 ```{r}
 
-theta2[which(theta2$Tajima <-1.5 & theta2$tPsite<0.001),]
+theta2[which(theta2$Tajima <-1.5 & theta2$tPsite<0.001),1:7]
+
+summary(theta2)
+
+sum(theta2$nSites)
 ```
 pull out extremes of Tajima's D
  
