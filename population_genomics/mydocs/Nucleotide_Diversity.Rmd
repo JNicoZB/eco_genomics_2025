@@ -30,7 +30,7 @@ Read in our theta outputs
 
 ```{r}
 
-theta <-read.table('2030_ALL_win50000_step50000.thetas',header=T, sep='\t')
+theta <-read.table('2024_ALL_win50000_step50000.thetas',header=T, sep='\t')
  
 head(theta)
  
@@ -88,7 +88,7 @@ ggplot(theta2, aes(x=tWsite, y=tPsite, color=Chr))+
 
   geom_abline(slope=1, intercept = 0, linetype='dashed',color='black')+
 
-  labs(title='Pairwise Differences vs Segregating Sites for Pop 2030', x='Theta-W', y='Theta-Pi')
+  labs(title='Pairwise Differences vs Segregating Sites for Pop 2024', x='Theta-W', y='Theta-Pi')
  
  
 ```
