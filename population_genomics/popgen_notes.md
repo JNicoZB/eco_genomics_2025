@@ -38,4 +38,11 @@
 
 -   Saw roughly 66% of reads mapped in poper pairs
 
--   Obtened
+
+
+### 09/30/25: Analyze population structure using PCA and Admixture
+- We created Principal component analyses (PCA) with 95 red spruce samples + black spruce samples (N=113 total)
+- We used the beagle file in the class datashare with genotype likelihoods already compyted:
+/gpfs1/cl/ecogen/pbio6800/PopulationGenomics/ANGSD/RSBS_poly.beagle.gz
+
+

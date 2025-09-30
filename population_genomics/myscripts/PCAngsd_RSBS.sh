@@ -39,11 +39,11 @@ INPUT="/gpfs1/cl/ecogen/pbio6800/PopulationGenomics/ANGSD"
 
 # Make directory and set path to save your output (in your repo):
 
-mkdir ~/projects/eco_genomics_2025/population_genomics/myresults/ANGSD/PCA_ADMIX
+#mkdir ~/projects/eco_genomics_2025/population_genomics/myresults/ANGSD/PCA_ADMIX
 
 OUT="//users/j/n/jnzapata/projects/eco_genomics_2025/population_genomics/myresults/ANGSD/PCA_ADMIX"
 
-SUFFIX="RSBS_poly"
+SUFFIX="allRS_poly"
 
 # Make a copy of the list of bam files for all the red + black spruce samples and place in your repo. You'll need this later for making figures.
 
@@ -53,7 +53,7 @@ cp ${INPUT}/RSBS_bam.list ${OUT}
 # Set value of K and number of PCA eigenvalues (=K-1)
 # K corresponds to the number of distinct ancestry groups you want to cluster genotypes into
 
-K=2
+K=3
 E=$((K-1))
 
 # Then, run PCA and admixture scores with pcangsd:
