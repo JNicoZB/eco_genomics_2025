@@ -44,7 +44,7 @@ pops <- data.frame(names[1:95], do.call(rbind, split[1:95]))
 names(pops) = c("Ind", "Pop", "Row", "Col")
 ```
 
-MAke the PCA on just the red spruce samples
+Make the PCA on just the red spruce samples
 
 ```{r}
 data = as.data.frame(allRSPCA$vectors)
@@ -66,7 +66,7 @@ ggscatter(data, x = "V1", y = "V2",
 Test for correlation between Amidxture scores from the red-black spruce analysis and the PC1 scores from the red spruce only analysis Is PC1 still an axis of introgression? ... #complete..
 
 ```{r}
-q_K2 <- read.table("RSBS_poly.admix.2.Q")
+q_K2 <- read.table("RSBS_poly_K2.admix.2.Q")
 names(q_K2) = c("qBS","qRS")
 
 data2 <- cbind(q_K2[1:95,1:2],data)

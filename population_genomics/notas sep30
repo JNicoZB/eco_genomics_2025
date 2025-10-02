@@ -66,7 +66,7 @@ pcangsd -b ${INPUT}/${SUFFIX}.beagle.gz \
         --maf 0.05 \
         --selection \
         --selection-eig $E
-        -- sites-save \
-        -- maf -save \
-        -- snp -weights \
+        --sites-save \
+        --maf-save \
+        --snp-weights \
         --threads 10

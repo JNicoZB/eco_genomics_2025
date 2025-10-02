@@ -47,9 +47,7 @@ SUFFIX="allRS_poly"
 
 # Make a copy of the list of bam files for all the red + black spruce samples and place in your repo. You'll need this later for making figures.
 
-cp ${INPUT}/RSBS_bam.list ${OUT}
-
-
+cp ${INPUT}/RSBS_bam.list ${OUT} #creo que debia cambiar a allrsbs, mantengo asi el script pero en mis datos de oct 2 si le cambien por allRS etc
 # Set value of K and number of PCA eigenvalues (=K-1)
 # K corresponds to the number of distinct ancestry groups you want to cluster genotypes into
 
@@ -65,8 +63,8 @@ pcangsd -b ${INPUT}/${SUFFIX}.beagle.gz \
 --admix-K $K \
 --maf 0.05 \
 --selection \
---selection-eig $E
--- sites-save \
--- maf -save \
--- snp -weights \
+--selection-eig $E \
+--sites-save \
+--maf-save \
+--snp-weights \
 --threads 10
