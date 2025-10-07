@@ -11,6 +11,7 @@ knitr::opts_knit$set(root.dir="~/projects/eco_genomics_2025/population_genomics/
 ```
 
 Load our libraries
+
 ```{r}
 library(tidyverse)
 library(ggplot2)
@@ -18,7 +19,7 @@ library(ggpubr)
 library(qqman)
 ```
 
-Re-make the PCA 
+Re-make the PCA
 
 ```{r}
 allRScov <- as.matrix(read.table("allRS_poly_K3.cov"))
@@ -35,7 +36,9 @@ barplot(var,
         xlab="Eigenvalues of the PCA", 
         ylab="Proportion of variance explained")
 ```
+
 Prepare the sample ID info for plotting later:
+
 ```{r}
 names <- read.table("allRS_bam.list")
 names <- unlist(strsplit(basename(as.character(names[,1])), split = ".sorted.rmdup.bam"))
@@ -86,8 +89,7 @@ p2 <- ggscatter(data2, x ="qBS", y = "V2",
 ggarrange(p1,p2)
 ```
 
-Now read in our selection stats and calculate the p values based on the Chi Square distribution
-!!!You'll need to edit the value you used for K here!!!
+Now read in our selection stats and calculate the p values based on the Chi Square distribution !!!You'll need to edit the value you used for K here!!!
 
 ```{r}
 s <- read.table("allRS_poly_K3.selection")
@@ -104,6 +106,7 @@ names(pval_PC2) = "p_PC2"
 #dim(p)
 
 ```
+
 Read the data on the SNP positions themselves
 
 ```{r}
@@ -117,11 +120,12 @@ pos_filtered <- cbind(MAF_all_sites,PCAngsd_sites)[which(PCAngsd_sites==1),]
 dim(pos_filtered)
 
 ```
+
 Now make a Mahayyan plot for PC1 and PC2 separately
+
 ```{r}
 plot(-log10(pval_PC1$p_PC1), col="black", cex=0.8, xlab="Locus position", main="Selection outliers: PCAngsd PC1")
 
 plot(-log10(pval_PC2$p_PC2), col="red", cex=0.8, xlab="Locus position", main="Selection outliers: PCAngsd PC2")
 
 ```
-
