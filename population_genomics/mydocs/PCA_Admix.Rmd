@@ -9,6 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_knit$set(root.dir="~/projects/eco_genomics_2025/population_genomics/myresults/ANGSD/PCA_ADMIX/")
 ```
+
 load libraries for plotting
 
 ```{r}
@@ -26,7 +27,14 @@ PCA <- eigen(COV)
 
 ```
 
+```{r}
+var <- round(PCA$values/sum(PCA$values),3)
+
+var[1:3]
+```
+
 Screeplot of the variance explained
+
 ```{r}
 
 barplot(var, 
@@ -36,7 +44,7 @@ barplot(var,
 ```
 
 ```{r}
-names <- read.table("RSBS_bam.list")
+names <- read.table("allRS_bam.list")
 names <- unlist(strsplit(basename(as.character(names[,1])), split = ".sorted.rmdup.bam"))
 split = strsplit(names, "_")
 pops <- data.frame(names[1:113], do.call(rbind, split[1:113]))
@@ -48,6 +56,7 @@ data= cbind(data, pops)
 ```
 
 Let's plot the PCA!
+
 ```{r}
 ggscatter(data, x = "V1", y = "V2",
           color = "Pop",
@@ -58,7 +67,8 @@ ggscatter(data, x = "V1", y = "V2",
   labs(x = paste0("PC1: (",var[1]*100,"%)"), y = paste0("PC2: (",var[2]*100,"%)"))
 ```
 
-What abour the admixture 
+What abour the admixture
+
 ```{r}
 q <- read.table("RSBS_poly_K2.admix.2.Q", sep=" ", header=F)
 
@@ -69,6 +79,7 @@ ord<-order(pops[,2])
 ```
 
 Plot the Admixture coefficients
+
 ```{r}
 barplot(t(q)[,ord],
         #col=cols[1:K],
@@ -79,4 +90,3 @@ barplot(t(q)[,ord],
 text(tapply(1:nrow(pops),pops[ord,2],mean),-0.05,unique(pops[ord,2]),xpd=T,cex=0.75,srt=45)
 abline(v=cumsum(sapply(unique(pops[ord,2]),function(x){sum(pops[ord,2]==x)})),col=1,lwd=1.2)
 ```
-
