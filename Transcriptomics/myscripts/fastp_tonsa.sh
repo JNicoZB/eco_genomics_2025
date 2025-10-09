@@ -20,7 +20,7 @@ cd /gpfs1/cl/ecogen/pbio6800/Transcriptomics/RawData
 # Define the sample code to anlayze
 # Be sure to replace with your 4-digit sample code
 
-MYSAMP="T3R"
+MYSAMP="T3"
 
 # for each file that has "MYSAMP" and "_1.fq.gz" (read 1) in the name
 # the wildcard here * allows for the different reps to be captured in the list

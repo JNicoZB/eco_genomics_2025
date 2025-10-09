@@ -1,0 +1,154 @@
+mkdir: cannot create directory ‘/users/j/n/jnzapata/projects/eco_genomics_2025/Transcriptomics/myresults/fastp_reports’: File exists
+T3R2_S163_L007_R1_001.fastq.gz T3R2_S163_L007_R2_001.fastq.gz
+T3R2_S163_L007_R1_cleanNZ_001.fastq.gz T3R2_S163_L007_R2_cleanNZ_001.fastq.gz
+Detecting adapter sequence for read1...
+>I7_Nextera_Transposase_1 | >Trans2_rc | >I7_Nextera_Transposase_1 | >Trans2_rc
+CTGTCTCTTATACACATCTCCGAGCCCACGAGAC
+
+Detecting adapter sequence for read2...
+>I5_Nextera_Transposase_1 | >Trans1_rc | >I5_Nextera_Transposase_1 | >Trans1_rc
+CTGTCTCTTATACACATCTGACGCTGCCGACGA
+
+Read1 before filtering:
+total reads: 30666345
+total bases: 4630618095
+Q20 bases: 4336967319(93.6585%)
+Q30 bases: 4037036050(87.1814%)
+
+Read2 before filtering:
+total reads: 30666345
+total bases: 4630618095
+Q20 bases: 4474224118(96.6226%)
+Q30 bases: 4296558437(92.7859%)
+
+Read1 after filtering:
+total reads: 29551813
+total bases: 3443916725
+Q20 bases: 3435182556(99.7464%)
+Q30 bases: 3395023795(98.5803%)
+
+Read2 after filtering:
+total reads: 29551813
+total bases: 3432783006
+Q20 bases: 3425992638(99.8022%)
+Q30 bases: 3391149388(98.7872%)
+
+Filtering result:
+reads passed filter: 59103626
+reads failed due to low quality: 17466
+reads failed due to too many N: 12716
+reads failed due to too short: 2198882
+reads with adapter trimmed: 27648800
+bases trimmed due to adapters: 1313707009
+
+Duplication rate: 29.8569%
+
+Insert size peak (evaluated by paired-end reads): 151
+
+JSON report: fastp.json
+HTML report: /users/j/n/jnzapata/projects/eco_genomics_2025/Transcriptomics/myresults/fastp_reports/T3R2_S163_L007_R1_cleanNZ_001.fastq.gz.html
+
+fastp -i T3R2_S163_L007_R1_001.fastq.gz -I T3R2_S163_L007_R2_001.fastq.gz -o /gpfs1/cl/ecogen/pbio6800/Transcriptomics/cleandata/T3R2_S163_L007_R1_cleanNZ_001.fastq.gz -O /gpfs1/cl/ecogen/pbio6800/Transcriptomics/cleandata/T3R2_S163_L007_R2_cleanNZ_001.fastq.gz --detect_adapter_for_pe --trim_poly_g --thread 4 --cut_right --cut_window_size 6 --qualified_quality_phred 20 --length_required 35 --html /users/j/n/jnzapata/projects/eco_genomics_2025/Transcriptomics/myresults/fastp_reports/T3R2_S163_L007_R1_cleanNZ_001.fastq.gz.html 
+fastp v0.23.4, time used: 122 seconds
+T3R3_S168_L007_R1_001.fastq.gz T3R3_S168_L007_R2_001.fastq.gz
+T3R3_S168_L007_R1_cleanNZ_001.fastq.gz T3R3_S168_L007_R2_cleanNZ_001.fastq.gz
+Detecting adapter sequence for read1...
+>I7_Nextera_Transposase_1 | >Trans2_rc | >I7_Nextera_Transposase_1 | >Trans2_rc
+CTGTCTCTTATACACATCTCCGAGCCCACGAGAC
+
+Detecting adapter sequence for read2...
+>I5_Nextera_Transposase_1 | >Trans1_rc | >I5_Nextera_Transposase_1 | >Trans1_rc
+CTGTCTCTTATACACATCTGACGCTGCCGACGA
+
+Read1 before filtering:
+total reads: 30754413
+total bases: 4643916363
+Q20 bases: 4305895042(92.7212%)
+Q30 bases: 3962900778(85.3353%)
+
+Read2 before filtering:
+total reads: 30754413
+total bases: 4643916363
+Q20 bases: 4493149276(96.7534%)
+Q30 bases: 4328724189(93.2128%)
+
+Read1 after filtering:
+total reads: 29642193
+total bases: 3235037785
+Q20 bases: 3226311229(99.7302%)
+Q30 bases: 3187499290(98.5305%)
+
+Read2 after filtering:
+total reads: 29642193
+total bases: 3221654281
+Q20 bases: 3215069257(99.7956%)
+Q30 bases: 3182568789(98.7868%)
+
+Filtering result:
+reads passed filter: 59284386
+reads failed due to low quality: 16354
+reads failed due to too many N: 11768
+reads failed due to too short: 2196318
+reads with adapter trimmed: 33656238
+bases trimmed due to adapters: 1645231053
+
+Duplication rate: 26.4863%
+
+Insert size peak (evaluated by paired-end reads): 49
+
+JSON report: fastp.json
+HTML report: /users/j/n/jnzapata/projects/eco_genomics_2025/Transcriptomics/myresults/fastp_reports/T3R3_S168_L007_R1_cleanNZ_001.fastq.gz.html
+
+fastp -i T3R3_S168_L007_R1_001.fastq.gz -I T3R3_S168_L007_R2_001.fastq.gz -o /gpfs1/cl/ecogen/pbio6800/Transcriptomics/cleandata/T3R3_S168_L007_R1_cleanNZ_001.fastq.gz -O /gpfs1/cl/ecogen/pbio6800/Transcriptomics/cleandata/T3R3_S168_L007_R2_cleanNZ_001.fastq.gz --detect_adapter_for_pe --trim_poly_g --thread 4 --cut_right --cut_window_size 6 --qualified_quality_phred 20 --length_required 35 --html /users/j/n/jnzapata/projects/eco_genomics_2025/Transcriptomics/myresults/fastp_reports/T3R3_S168_L007_R1_cleanNZ_001.fastq.gz.html 
+fastp v0.23.4, time used: 118 seconds
+T3R4-P1_S255_L007_R1_001.fastq.gz T3R4-P1_S255_L007_R2_001.fastq.gz
+T3R4-P1_S255_L007_R1_cleanNZ_001.fastq.gz T3R4-P1_S255_L007_R2_cleanNZ_001.fastq.gz
+Detecting adapter sequence for read1...
+>I7_Nextera_Transposase_1 | >Trans2_rc | >I7_Nextera_Transposase_1 | >Trans2_rc
+CTGTCTCTTATACACATCTCCGAGCCCACGAGAC
+
+Detecting adapter sequence for read2...
+>I5_Nextera_Transposase_1 | >Trans1_rc | >I5_Nextera_Transposase_1 | >Trans1_rc
+CTGTCTCTTATACACATCTGACGCTGCCGACGA
+
+Read1 before filtering:
+total reads: 34512153
+total bases: 5211335103
+Q20 bases: 4793263867(91.9777%)
+Q30 bases: 4326750339(83.0258%)
+
+Read2 before filtering:
+total reads: 34512153
+total bases: 5211335103
+Q20 bases: 4964817161(95.2696%)
+Q30 bases: 4687666853(89.9514%)
+
+Read1 after filtering:
+total reads: 33008626
+total bases: 3570248596
+Q20 bases: 3555253395(99.58%)
+Q30 bases: 3475081071(97.3344%)
+
+Read2 after filtering:
+total reads: 33008626
+total bases: 3544578591
+Q20 bases: 3532392056(99.6562%)
+Q30 bases: 3459040032(97.5868%)
+
+Filtering result:
+reads passed filter: 66017252
+reads failed due to low quality: 19382
+reads failed due to too many N: 12300
+reads failed due to too short: 2975372
+reads with adapter trimmed: 36725867
+bases trimmed due to adapters: 1813376599
+
+Duplication rate: 20.9681%
+
+Insert size peak (evaluated by paired-end reads): 151
+
+JSON report: fastp.json
+HTML report: /users/j/n/jnzapata/projects/eco_genomics_2025/Transcriptomics/myresults/fastp_reports/T3R4-P1_S255_L007_R1_cleanNZ_001.fastq.gz.html
+
+fastp -i T3R4-P1_S255_L007_R1_001.fastq.gz -I T3R4-P1_S255_L007_R2_001.fastq.gz -o /gpfs1/cl/ecogen/pbio6800/Transcriptomics/cleandata/T3R4-P1_S255_L007_R1_cleanNZ_001.fastq.gz -O /gpfs1/cl/ecogen/pbio6800/Transcriptomics/cleandata/T3R4-P1_S255_L007_R2_cleanNZ_001.fastq.gz --detect_adapter_for_pe --trim_poly_g --thread 4 --cut_right --cut_window_size 6 --qualified_quality_phred 20 --length_required 35 --html /users/j/n/jnzapata/projects/eco_genomics_2025/Transcriptomics/myresults/fastp_reports/T3R4-P1_S255_L007_R1_cleanNZ_001.fastq.gz.html 
+fastp v0.23.4, time used: 135 seconds
