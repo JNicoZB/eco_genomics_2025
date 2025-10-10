@@ -6,7 +6,6 @@ This is a olce for me to keep my notes on my electronic/activies during the tran
 
 On the first day of transcriptomoics we learned about the motivation and process of asking questions and analyzing RNAseq data. We satarted to run fastq
 
-
 ## 10/09/2025
 
-Edi
+Edited updated `fastp_tonsa.sh` script.
