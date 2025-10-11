@@ -44,7 +44,7 @@ barplot(var,
 ```
 
 ```{r}
-names <- read.table("allRS_bam.list")
+names <- read.table("RSBS_bam.list")
 names <- unlist(strsplit(basename(as.character(names[,1])), split = ".sorted.rmdup.bam"))
 split = strsplit(names, "_")
 pops <- data.frame(names[1:113], do.call(rbind, split[1:113]))

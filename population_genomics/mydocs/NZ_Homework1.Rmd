@@ -10,161 +10,213 @@ knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_knit$set(root.dir="~/projects/eco_genomics_2025/population_genomics/myresults/ANGSD/PCA_ADMIX/")
 ```
 
+Load necesary libraries
 
 ```{r}
-library(tidyverse)
+
 library(ggplot2)
 library(ggpubr)
-library(qqman)
+
 ```
 
+PCA
 
 ```{r}
-allRScov2 <- as.matrix(read.table("allRS_poly_K2.cov"))
 
-allRSPCA2 <- eigen(allRScov2)
+# For K=2
+COV_K2 <- as.matrix(read.table("RSBS_poly_K2.cov"))
 
-varK2 <- round(allRSPCA2$values/sum(allRSPCA2$values),3)
+PCA <- eigen(COV_K2)
 
-varK2[1:3]
+# For K=3
 
-# A "screeplot" of the eigenvalues of the PCA:
+COV_K3 <- as.matrix(read.table("RSBS_poly_K3.cov"))
 
-barplot(varK2, 
-        xlab="Eigenvalues of the PCA K=2", 
+PCA <- eigen(COV_K3)
+
+# For K=4
+
+COV_K4 <- as.matrix(read.table("RSBS_poly_K4.cov"))
+
+PCA <- eigen(COV_K4)
+
+# For K=5
+COV_K5 <- as.matrix(read.table("RSBS_poly_K5.cov"))
+
+PCA <- eigen(COV_K5)
+
+```
+
+Var
+
+```{r}
+var_K2 <- round(PCA$values/sum(PCA$values),3)
+
+var_K2[1:3]
+
+barplot(var_K2, 
+        xlab="Eigenvalues of the PCA", 
         ylab="Proportion of variance explained")
 ```
 
 ```{r}
-allRScov3 <- as.matrix(read.table("allRS_poly_K3.cov"))
+var_K3 <- round(PCA$values/sum(PCA$values),4)
 
-allRSPCA3 <- eigen(allRScov3)
+var_K3[1:4]
 
-varK3 <- round(allRSPCA3$values/sum(allRSPCA3$values),4)
-
-varK3[1:4]
-
-# A "screeplot" of the eigenvalues of the PCA:
-
-barplot(varK3, 
-        xlab="Eigenvalues of the PCA K=3", 
+barplot(var_K3, 
+        xlab="Eigenvalues of the PCA", 
         ylab="Proportion of variance explained")
 ```
 
 ```{r}
-allRScov4 <- as.matrix(read.table("allRS_poly_K4.cov"))
+var_K4 <- round(PCA$values/sum(PCA$values),5)
 
-allRSPCA4 <- eigen(allRScov4)
+var_K4[1:5]
 
-varK4 <- round(allRSPCA4$values/sum(allRSPCA4$values),5)
-
-varK4[1:5]
-
-# A "screeplot" of the eigenvalues of the PCA:
-
-barplot(varK4, 
-        xlab="Eigenvalues of the PCA K=4", 
+barplot(var_K4, 
+        xlab="Eigenvalues of the PCA", 
         ylab="Proportion of variance explained")
 ```
 
 ```{r}
-allRScov5 <- as.matrix(read.table("allRS_poly_K5.cov"))
+var_K5 <- round(PCA$values/sum(PCA$values),6)
 
-allRSPCA5 <- eigen(allRScov5)
+var_K5[1:6]
 
-varK5 <- round(allRSPCA5$values/sum(allRSPCA5$values),6)
-
-varK5[1:6]
-
-# A "screeplot" of the eigenvalues of the PCA:
-
-barplot(varK5, 
-        xlab="Eigenvalues of the PCA K=5", 
+barplot(var_K5, 
+        xlab="Eigenvalues of the PCA", 
         ylab="Proportion of variance explained")
 ```
 
 ```{r}
+
 names <- read.table("RSBS_bam.list")
 names <- unlist(strsplit(basename(as.character(names[,1])), split = ".sorted.rmdup.bam"))
 split = strsplit(names, "_")
-pops <- data.frame(names[1:95], do.call(rbind, split[1:95]))
+pops <- data.frame(names[1:113], do.call(rbind, split[1:113]))
 names(pops) = c("Ind", "Pop", "Row", "Col")
+
+data=as.data.frame(PCA$vectors)
+data=data[,c(1:3)]
+data= cbind(data, pops)
+
 ```
 
 ```{r}
-data = as.data.frame(allRSPCA2$vectors)
-data = data[,c(1:3)]
-data = cbind(data,pops)
-
-# PCA with just red spruce (95 samples):
 
 ggscatter(data, x = "V1", y = "V2",
           color = "Pop",
           mean.point = TRUE,
           star.plot = TRUE,
-          main="Red spruce genetic PCA") +
+          main="Red spruce-Black spruce genetic PCA") +
   theme_bw(base_size = 13, base_family = "Times") +
-  labs(x = paste0("PC1: (",varK2[1]*100,"%)"), y = paste0("PC2: (",varK2[2]*100,"%)"))
+  labs(x = paste0("PC1: (",var[1]*100,"%)"), y = paste0("PC2: (",Var[2]*100,"%)"))
+
 
 ```
 
 ```{r}
-data = as.data.frame(allRSPCA3$vectors)
-data = data[,c(1:3)]
-data = cbind(data,pops)
+q2 <- read.table("RSBS_poly_K2.admix.2.Q", sep=" ", header=F)
 
-# PCA with just red spruce (95 samples):
+K2=dim(q2)[2] #Find the level of K modeled
 
-ggscatter(data, x = "V1", y = "V2",
-          color = "Pop",
-          mean.point = TRUE,
-          star.plot = TRUE,
-          main="Red spruce genetic PCA") +
-  theme_bw(base_size = 13, base_family = "Times") +
-  labs(x = paste0("PC1: (",varK3[1]*100,"%)"), y = paste0("PC2: (",varK3[2]*100,"%)"))
+## rank order the samples according to population code
+ord2<-order(pops[,2])
 
 ```
-```{r}
-data = as.data.frame(allRSPCA4$vectors)
-data = data[,c(1:3)]
-data = cbind(data,pops)
-
-# PCA with just red spruce (95 samples):
-
-ggscatter(data, x = "V1", y = "V2",
-          color = "Pop",
-          mean.point = TRUE,
-          star.plot = TRUE,
-          main="Red spruce genetic PCA") +
-  theme_bw(base_size = 13, base_family = "Times") +
-  labs(x = paste0("PC1: (",varK4[1]*100,"%)"), y = paste0("PC2: (",varK4[2]*100,"%)"))
-
-```
-
-
 
 ```{r}
-data = as.data.frame(allRSPCA5$vectors)
-data = data[,c(1:3)]
-data = cbind(data,pops)
+q3 <- read.table("RSBS_poly_K3.admix.3.Q", sep=" ", header=F)
 
-# PCA with just red spruce (95 samples):
+K3=dim(q3)[2] #Find the level of K modeled
 
-ggscatter(data, x = "V1", y = "V2",
-          color = "Pop",
-          mean.point = TRUE,
-          star.plot = TRUE,
-          main="Red spruce genetic PCA") +
-  theme_bw(base_size = 13, base_family = "Times") +
-  labs(x = paste0("PC1: (",varK5[1]*100,"%)"), y = paste0("PC2: (",varK5[2]*100,"%)"))
+## rank order the samples according to population code
+ord3<-order(pops[,2])
+
 
 ```
 
+#K=4
 
+```{r}
+q4 <- read.table("RSBS_poly_K4.admix.4.Q", sep=" ", header=F)
 
+K4=dim(q4)[2] #Find the level of K modeled
 
+## rank order the samples according to population code
+ord4<-order(pops[,2])
 
+```
 
+# K=5
 
+```{r}
+q5 <- read.table("RSBS_poly_K5.admix.5.Q", sep=" ", header=F)
 
+K5=dim(q5)[2] #Find the level of K modeled
 
+## rank order the samples according to population code
+ord5<-order(pops[,2])
+
+```
+
+Plot
+
+```{r}
+pdf("Admix_K2_K5.pdf",width=4, height = 8)
+par(mfrow=c(4,1))
+```
+
+```{r}
+# for K=2
+
+barplot(t(q2)[,ord2],
+        #col=cols[1:K],
+        col=c("black","red"),
+        space=0,border=NA,
+        xlab="Populations",ylab="Admixture proportions",
+        main=paste0("Red Spruce-Black Spruce Admixture: K=",K2))
+text(tapply(1:nrow(pops),pops[ord2,2],mean),-0.05,unique(pops[ord2,2]),xpd=T,cex=0.75,srt=45)
+abline(v=cumsum(sapply(unique(pops[ord2,2]),function(x){sum(pops[ord2,2]==x)})),col=1,lwd=1.2)
+
+```
+
+```{r}
+
+# for K=3
+
+barplot(t(q3)[,ord3],
+        #col=cols[1:K],
+        col=c("black","red"),
+        space=0,border=NA,
+        xlab="Populations",ylab="Admixture proportions",
+        main=paste0("Red Spruce-Black Spruce Admixture: K=",K3))
+text(tapply(1:nrow(pops),pops[ord3,2],mean),-0.05,unique(pops[ord3,2]),xpd=T,cex=0.75,srt=45)
+abline(v=cumsum(sapply(unique(pops[ord3,2]),function(x){sum(pops[ord3,2]==x)})),col=1,lwd=1.2)
+```
+
+```{r}
+#for K=4
+barplot(t(q4)[,ord4],
+        #col=cols[1:K],
+        col=c("black","red"),
+        space=0,border=NA,
+        xlab="Populations",ylab="Admixture proportions",
+        main=paste0("Red Spruce-Black Spruce Admixture: K=",K4))
+text(tapply(1:nrow(pops),pops[ord4,2],mean),-0.05,unique(pops[ord4,2]),xpd=T,cex=0.75,srt=45)
+abline(v=cumsum(sapply(unique(pops[ord4,2]),function(x){sum(pops[ord4,2]==x)})),col=1,lwd=1.2)
+```
+
+```{r}
+
+# for K=5
+barplot(t(q5)[,ord5],
+        #col=cols[1:K],
+        col=c("black","red"),
+        space=0,border=NA,
+        xlab="Populations",ylab="Admixture proportions",
+        main=paste0("Red Spruce-Black Spruce Admixture: K=",K5))
+text(tapply(1:nrow(pops),pops[ord5,2],mean),-0.05,unique(pops[ord5,2]),xpd=T,cex=0.75,srt=45)
+abline(v=cumsum(sapply(unique(pops[ord5,2]),function(x){sum(pops[ord5,2]==x)})),col=1,lwd=1.2)
+```
