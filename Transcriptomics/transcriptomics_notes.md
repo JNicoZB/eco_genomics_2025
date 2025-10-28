@@ -26,4 +26,7 @@ COMPLETAR NOTAS
 I all the time have trouble with the library staff, so to avoid that I have to run this line of code ".libPaths(c("/gpfs1/cl/ecogen/sw/R/4.5", .libPaths()))"" in the beggining.
 But we also run a code in the terminal in the /gfsp1/cl/ecogen/ directory and sbach the s...
 
+### 10/28/2025
+
+Understand Weighted Gene Correlation Network Analysis (WGCNA)
 
