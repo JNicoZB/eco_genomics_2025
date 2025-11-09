@@ -107,19 +107,88 @@ gen2_results <- run_topgo_analysis(resG2_CvT, "Gen2", "Genes_GO_terms_output.tsv
 gen3_results <- run_topgo_analysis(resG3_CvT, "Gen3", "Genes_GO_terms_output.tsv")
 gen4_results <- run_topgo_analysis(resG4_CvT, "Gen4", "Genes_GO_terms_output.tsv")
 
-# Ver gráficos
+# graphs
 gen1_results$plot
 gen2_results$plot
+gen3_results$plot
+gen4_results$plot
 
-# Acceder a tablas
+# tables
 gen1_results$table
 gen2_results$table
-
+gen3_results$table
+gen4_results$table
 
 ```
 
 ```{r}
-# 1. Definir la función
+library(dplyr)
+
+# 1. Extraer y etiquetar las tablas por generación
+gen1_table <- gen1_results$table %>% mutate(Generation = "Gen1")
+gen2_table <- gen2_results$table %>% mutate(Generation = "Gen2")
+gen3_table <- gen3_results$table %>% mutate(Generation = "Gen3")
+gen4_table <- gen4_results$table %>% mutate(Generation = "Gen4")
+
+# 2. Unir todas las tablas
+all_go_results <- bind_rows(gen1_table, gen2_table, gen3_table, gen4_table)
+
+# 3. Limpiar y transformar
+go_summary <- all_go_results %>%
+  select(Generation, Term, classicFisher, Significant) %>%
+  mutate(`-log10(p-value)` = -log10(classicFisher)) %>%
+  arrange(Generation, classicFisher)
+
+
+
+# 5. Ver los primeros términos por generación
+go_summary %>% group_by(Generation) %>% slice_max(`-log10(p-value)`, n = 5) %>% ungroup()
+
+```
+
+```{r}
+write.csv(go_summary, "GO_comparative_summary.csv", row.names = FALSE)
+
+
+```
+
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(pheatmap)
+
+# top 10 terms 
+top_terms <- go_summary %>%
+  group_by(Generation) %>%
+  slice_max(`-log10(p-value)`, n = 10) %>%
+  ungroup()
+
+# matrix creation 
+heatmap_data <- top_terms %>%
+  select(Term, Generation, `-log10(p-value)`) %>%
+  pivot_wider(names_from = Generation, values_from = `-log10(p-value)`)
+
+# 
+mat <- as.matrix(heatmap_data[,-1])
+rownames(mat) <- heatmap_data$Term
+
+# heatmap
+pheatmap(mat,
+         color = colorRampPalette(c("yellow", "orange", "red", "purple"))(100),
+         cluster_rows = FALSE,
+         cluster_cols = FALSE,
+         main = "GO term significance across generations",
+         fontsize_row = 6,
+         fontsize_col = 10,
+         na_col = "grey90")
+
+```
+
+
+```{r}
+# define function
+
 export_revigo_files <- function(results_list, generation_labels) {
   for (i in seq_along(results_list)) {
     res_table <- results_list[[i]]$table
@@ -135,7 +204,7 @@ export_revigo_files <- function(results_list, generation_labels) {
   }
 }
 
-# 2. Ejecutar la función con tus resultados
+# Results
 results_list <- list(gen1_results, gen2_results, gen3_results, gen4_results)
 labels <- c("Gen1", "Gen2", "Gen3", "Gen4")
 
@@ -170,6 +239,9 @@ table(revigo_all_clean$Generation)
 ```
 
 ```{r}
+revigo_all_clean <- revigo_all_clean %>%
+  select(PC_0, PC_1, Frequency, Generation, Value)
+
 
 revigo_all_clean <- revigo_all %>%
   mutate(Value = ifelse(Value <= 0 | is.na(Value), 1e-10, Value))
