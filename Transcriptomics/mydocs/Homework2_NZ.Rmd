@@ -63,7 +63,7 @@ run_topgo_analysis <- function(res_object, generation_label, go_file_path) {
            Annotated = as.numeric(Annotated),
            Significant = as.numeric(Significant))
 
-  # Filter and plot
+  # Filter results
   filtered_GO_results <- res_table %>%
     filter(Annotated >= 5 & Annotated < 500) %>%
     group_by(Term) %>%
@@ -71,33 +71,129 @@ run_topgo_analysis <- function(res_object, generation_label, go_file_path) {
     ungroup() %>%
     arrange(classicFisher)
 
-  ggplot(filtered_GO_results %>% slice_head(n = 30),
-         aes(x = -log10(classicFisher),
-             y = reorder(Term, -log10(classicFisher)),
-             size = Significant,
-             color = -log10(classicFisher))) +
-    geom_point(alpha = 0.8) +
-    scale_color_gradientn(colors = c("pink", "orchid", "purple", "purple4"),
-                          name = "-log10(p-value)") +
-    scale_size_continuous(name = "# Significant Genes") +
-    xlab("-log10-classicFisher") +
-    ylab("Biological Function") +
-    ggtitle(paste("GO Enrichment for DEGs at", generation_label)) +
-    theme_minimal() +
-    theme(plot.margin = margin(10, 100, 10, 10),
-          axis.text.y = element_text(size = 10, hjust = 1)) +
-    coord_cartesian(clip = "off")
+  # Create plot only if there are results
+  if (nrow(filtered_GO_results) > 0) {
+    p <- ggplot(filtered_GO_results %>% slice_head(n = 15),
+                aes(x = -log10(classicFisher),
+                    y = reorder(Term, -log10(classicFisher)),
+                    size = Significant,
+                    color = -log10(classicFisher))) +
+      geom_point(alpha = 0.8) +
+      scale_color_gradientn(colors = c("pink", "orchid", "purple", "purple4"),
+                            name = "-log10(p-value)") +
+      scale_size_continuous(name = "# Significant Genes") +
+      xlab("-log10-classicFisher") +
+      ylab("Biological Function") +
+      ggtitle(paste("GO Enrichment for DEGs at", generation_label)) +
+      theme_minimal() +
+      theme(plot.margin = margin(10, 100, 10, 10),
+            axis.text.y = element_text(size = 5, hjust = 1)) +
+      coord_cartesian(clip = "off")
+    print(p)
+  } else {
+    message("⚠️ No hay términos GO significativos para graficar en ", generation_label)
+    p <- NULL
+  }
+
+  return(list(plot = p, table = filtered_GO_results))  
 }
 
 ```
 
 ```{r}
 
-run_topgo_analysis(resG1_CvT, "Gen1", "Genes_GO_terms_output.tsv")
-run_topgo_analysis(resG2_CvT, "Gen2", "Genes_GO_terms_output.tsv")
-run_topgo_analysis(resG3_CvT, "Gen3", "Genes_GO_terms_output.tsv")
-run_topgo_analysis(resG4_CvT, "Gen4", "Genes_GO_terms_output.tsv")
+gen1_results <- run_topgo_analysis(resG1_CvT, "Gen1", "Genes_GO_terms_output.tsv")
+gen2_results <- run_topgo_analysis(resG2_CvT, "Gen2", "Genes_GO_terms_output.tsv")
+gen3_results <- run_topgo_analysis(resG3_CvT, "Gen3", "Genes_GO_terms_output.tsv")
+gen4_results <- run_topgo_analysis(resG4_CvT, "Gen4", "Genes_GO_terms_output.tsv")
+
+# Ver gráficos
+gen1_results$plot
+gen2_results$plot
+
+# Acceder a tablas
+gen1_results$table
+gen2_results$table
+
 
 ```
+
+
+```{r}
+# 1. Definir la función
+export_revigo_files <- function(results_list, generation_labels) {
+  for (i in seq_along(results_list)) {
+    res_table <- results_list[[i]]$table
+    label <- generation_labels[i]
+
+    revigo_input <- res_table[, c("GO.ID", "classicFisher")]
+    sigRes <- revigo_input[as.numeric(revigo_input$classicFisher) < 0.05, ]
+    colnames(sigRes) <- c("GO.ID", "pValue")
+
+    write.table(sigRes,
+                file = paste0("topGOsig_", label, "_for_REVIGO.txt"),
+                sep = "\t", row.names = FALSE, quote = FALSE)
+  }
+}
+
+# 2. Ejecutar la función con tus resultados
+results_list <- list(gen1_results, gen2_results, gen3_results, gen4_results)
+labels <- c("Gen1", "Gen2", "Gen3", "Gen4")
+
+export_revigo_files(results_list, labels)
+
+```
+
+
+```{r}
+library(readr)
+library(dplyr)
+
+# REVIGO data 
+revigo_G1 <- read_tsv("REVIGO_Gen1.tsv") %>% mutate(Generation = "Gen1")
+revigo_G2 <- read_tsv("REVIGO_Gen2.tsv") %>% mutate(Generation = "Gen2")
+revigo_G3 <- read_tsv("REVIGO_Gen3.tsv") %>% mutate(Generation = "Gen3")
+revigo_G4 <- read_tsv("REVIGO_Gen4.tsv") %>% mutate(Generation = "Gen4")
+
+# join all
+
+revigo_all <- bind_rows(revigo_G1, revigo_G2, revigo_G3, revigo_G4)
+
+
+```
+
+```{r}
+nrow(revigo_all_clean)
+
+```
+```{r}
+table(revigo_all_clean$Generation)
+```
+
+
+```{r}
+
+revigo_all_clean <- revigo_all %>%
+  mutate(Value = ifelse(Value <= 0 | is.na(Value), 1e-10, Value))
+
+ggplot(revigo_all_clean, aes(x = PC_0, y = PC_1,
+                             size = Frequency,
+                             color = -log10(Value))) +
+  geom_point(alpha = 0.7) +
+  facet_wrap(~ Generation) +
+  scale_color_gradientn(colors = c("yellow", "orange", "red", "purple")) +
+  theme_minimal() +
+  labs(title = "Semantic comparison between generations",
+       x = "MDS axis PC_0 (semantic similarity)",
+       y = "MDS axis PC_1 (semantic similarity)",
+       size = "GO term frequency",
+       color = "-log10(p-value)")
+
+
+
+
+
+```
+
 
 
