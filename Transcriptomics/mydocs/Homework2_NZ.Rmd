@@ -155,7 +155,7 @@ revigo_G4 <- read_tsv("REVIGO_Gen4.tsv") %>% mutate(Generation = "Gen4")
 
 # join all
 
-revigo_all <- bind_rows(revigo_G1, revigo_G2, revigo_G3, revigo_G4)
+revigo_all_clean <- bind_rows(revigo_G1, revigo_G2, revigo_G3, revigo_G4)
 
 
 ```
@@ -194,101 +194,47 @@ ggplot(revigo_all_clean, aes(x = PC_0, y = PC_1,
 ```
 
 
-
 ```{r}
-ggplot(revigo_all_clean, aes(x = PC_0, y = PC_1,
-                             size = Frequency,
-                             color = Generation)) +
-  geom_point(alpha = 0.7) +
-  theme_minimal() +
-  labs(title = "Semantic space of GO terms across generations",
-       x = "Semantic axis PC_0",
-       y = "Semantic axis PC_1",
-       size = "GO term frequency",
-       color = "Generation")
-```
-
-
-
-
-
-```{r}
-library(ggrepel)
-
-highlight_terms <- revigo_all_clean %>%
-  filter(Value < 0.01)
-
-ggplot(revigo_all_clean, aes(x = PC_0, y = PC_1)) +
-  geom_point(aes(size = Frequency, color = Generation), alpha = 0.5) +
-  geom_point(data = highlight_terms, aes(size = Frequency), color = "black", shape = 21, stroke = 1.2) +
-  geom_text_repel(data = highlight_terms, aes(label = Name), size = 3) +
-  theme_minimal() +
-  labs(title = "Highlighted significant GO terms in semantic space",
-       x = "Semantic axis PC_0",
-       y = "Semantic axis PC_1")
-
-```
-
-
-
-```{r}
-library(ggplot2)
-library(ggrepel)
-library(dplyr)
-
-# Filtrar los términos más significativos
-highlight_terms <- revigo_all_clean %>%
-  filter(Value < 0.01)
-
-# Scatter plot con etiquetas
 ggplot(revigo_all_clean, aes(x = PC_0, y = PC_1)) +
   geom_point(aes(size = Frequency, color = Generation), alpha = 0.6) +
-  geom_point(data = highlight_terms, aes(size = Frequency), color = "black", shape = 21, stroke = 1.2) +
-  geom_text_repel(data = highlight_terms, aes(label = Name), size = 3, max.overlaps = 20) +
-  scale_color_manual(values = c("Gen1" = "red", "Gen2" = "green", "Gen3" = "blue", "Gen4" = "purple")) +
+  scale_color_manual(values = c("Gen1" = "red", "Gen2" = "green", "Gen3" = "cyan", "Gen4" = "purple")) +
   theme_minimal(base_size = 12) +
-  labs(title = "Semantic space of significant GO terms across generations",
-       x = "Semantic axis PC_0",
-       y = "Semantic axis PC_1",
-       size = "GO term frequency",
-       color = "Generation")
+  labs(
+    title = "Semantic space of GO terms across generations",
+    x = "Semantic axis PC_0",
+    y = "Semantic axis PC_1",
+    size = "GO term frequency",
+    color = "Generation"
+  )
 
 
 ```
 
 
 
-```{r}
-library(dplyr)
-library(tidyr)
-library(ggplot2)
 
-# Filtrar top 10 términos por generación
-top_terms <- revigo_all_clean %>%
-  group_by(Generation) %>%
-  slice_min(order_by = Value, n = 10) %>%
-  ungroup()
 
-# Crear matriz: GO term vs Generation
-heatmap_data <- top_terms %>%
-  select(Generation, Name, Value) %>%
-  mutate(Significance = -log10(Value)) %>%
-  pivot_wider(names_from = Generation, values_from = Significance)
 
-# Convertir a formato largo para ggplot
-heatmap_long <- heatmap_data %>%
-  pivot_longer(cols = -Name, names_to = "Generation", values_to = "Significance")
 
-# Graficar heatmap
-ggplot(heatmap_long, aes(x = Generation, y = Name, fill = Significance)) +
-  geom_tile(color = "white") +
-  scale_fill_gradientn(colors = c("white", "yellow", "orange", "red", "purple"),
-                       na.value = "grey90") +
-  theme_minimal(base_size = 11) +
-  labs(title = "GO term significance across generations",
-       x = "Generation",
-       y = "GO Term",
-       fill = "-log10(p-value)")
 
-```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
