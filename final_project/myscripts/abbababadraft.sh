@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=ABBABABA
+#SBATCH --job-name=ABBABABA2
 
 # Name the output file: Re-direct the log file to your home directory
 # The first part of the name (%x) will be whatever you name your job 
@@ -32,45 +32,24 @@
 module purge
 module load gcc angsd
 
-# set up directories
+#set up directories
 
-#mkdir ~/projects/eco_genomics_2025/final_project/mydata/ABBA_BABA
+REPO="/users/j/n/jnzapata/projects/eco_genomics_2025/final_project/mydata/ABBA_BABA"
 
-REPO="/users/j/n/jnzapata/projects/eco_genomics_2025/final_project/myresults"
-
-OUT="/users/j/n/jnzapata/projects/eco_genomics_2025/final_project/mydata/ABBA_BABA"
+OUT="/users/j/n/jnzapata/projects/eco_genomics_2025/final_project/myresults"
 
 REF="/gpfs1/cl/ecogen/pbio6800/PopulationGenomics/ref_genome/Pmariana/Pmariana1.0-genome_reduced.fa"
 
-
-#ls ${INPUT}/${MYPOP}*sorted.rmdup.bam >${OUT}/ABBABABA_V1_bam.list
-
-#ls ${INPUT}/${MYPOP}*sorted.rmdup.bam >${OUT}/${MYPOP}_bam.list
-
-
-##mkdir ${REPO}/myresults/ANGSD
-
-##mkdir ${REPO}/myresults/ANGSD/diversity
-
-# create a bam.filelist EN PROGRESO
-
-cat ${OUT}/ABBABABA_V1_bam.list \
-    ${OUT}/ABBABABA_V2_bam.list \
-    ${OUT}/ABBABABA_BS_bam.list \
-    ${OUT}/ABBABABA_WS_bam.list \
-    > ${OUT}/bam.filelist
-
-
-## do ABBA BABA
+# to run ABBA BABA ?
 
 angsd -doAbbababa2 1 \
--bam ${REPO}/_bam.list \
--ref ${REF} \
+-bam ${REPO}/bam.filelist \
+-sizeFile ${REPO}/sizeFile.size \
 -anc ${REF} \
--out ${OUT}/ABBA_BABA \
+-out ${OUT}/ABBA_BABA_run1 \
 -doCounts 1 \
 -nThreads 10 \
 -minMapQ 20 \
 -minQ 20 \
-
-
+-blockSize 10000 \
+-useLast 1

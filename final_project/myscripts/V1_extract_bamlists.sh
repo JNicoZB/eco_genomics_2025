@@ -20,6 +20,6 @@ REF="/gpfs1/cl/ecogen/pbio6800/PopulationGenomics/ref_genome/Pmariana/Pmariana1.
 
 ls ${INPUT}/2019*sorted.rmdup.bam >${OUT}/ABBABABA_V1_bam.list
 
-ls ${INPUT}/2020*sorted.rmdup.bam >>${OUT}>ABBABABA_V1_bam.list
+ls ${INPUT}/2020*sorted.rmdup.bam >> ${OUT}/ABBABABA_V1_bam.list
 
 

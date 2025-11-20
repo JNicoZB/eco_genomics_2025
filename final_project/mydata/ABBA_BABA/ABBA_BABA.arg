@@ -1,2 +1,0 @@
-	-> angsd version: 0.935 (htslib: 1.19.1) build(Dec 18 2024 17:12:57)
-	-> angsd -doAbbababa 1 -bam /users/j/n/jnzapata/projects/eco_genomics_2025/final_project/myresults_bam.list -ref /gpfs1/cl/ecogen/pbio6800/PopulationGenomics/ref_genome/Pmariana/Pmariana1.0-genome_reduced.fa -anc /gpfs1/cl/ecogen/pbio6800/PopulationGenomics/ref_genome/Pmariana/Pmariana1.0-genome_reduced.fa -out /users/j/n/jnzapata/projects/eco_genomics_2025/final_project/mydata/ABBA_BABA/ABBA_BABA -doCounts 1 -nThreads 10 -minMapQ 20 -minQ 20 

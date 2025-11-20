@@ -20,14 +20,13 @@ REF="/gpfs1/cl/ecogen/pbio6800/PopulationGenomics/ref_genome/Pmariana/Pmariana1.
 
 ls ${INPUT}/2022*sorted.rmdup.bam >${OUT}/ABBABABA_V3_bam.list
 
-ls ${INPUT}/2024*sorted.rmdup.bam >${OUT}/ABBABABA_V3_bam.list
-
-ls ${INPUT}/2027*sorted.rmdup.bam >${OUT}/ABBABABA_V3_bam.list
-ls ${INPUT}/2030*sorted.rmdup.bam >${OUT}/ABBABABA_V3_bam.list
-ls ${INPUT}/2032*sorted.rmdup.bam >${OUT}/ABBABABA_V3_bam.list
-ls ${INPUT}/2100*sorted.rmdup.bam >${OUT}/ABBABABA_V3_bam.list
-ls ${INPUT}/2101*sorted.rmdup.bam >${OUT}/ABBABABA_V3_bam.list
-ls ${INPUT}/2103*sorted.rmdup.bam >${OUT}/ABBABABA_V3_bam.list
-ls ${INPUT}/2505*sorted.rmdup.bam >${OUT}/ABBABABA_V3_bam.list
+ls ${INPUT}/2024*sorted.rmdup.bam >> ${OUT}/ABBABABA_V3_bam.list
+ls ${INPUT}/2027*sorted.rmdup.bam >> ${OUT}/ABBABABA_V3_bam.list
+ls ${INPUT}/2030*sorted.rmdup.bam >> ${OUT}/ABBABABA_V3_bam.list
+ls ${INPUT}/2032*sorted.rmdup.bam >> ${OUT}/ABBABABA_V3_bam.list
+ls ${INPUT}/2100*sorted.rmdup.bam >> ${OUT}/ABBABABA_V3_bam.list
+ls ${INPUT}/2101*sorted.rmdup.bam >> ${OUT}/ABBABABA_V3_bam.list
+ls ${INPUT}/2103*sorted.rmdup.bam >> ${OUT}/ABBABABA_V3_bam.list
+ls ${INPUT}/2505*sorted.rmdup.bam >> ${OUT}/ABBABABA_V3_bam.list
 
 
